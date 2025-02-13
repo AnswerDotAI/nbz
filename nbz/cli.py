@@ -35,7 +35,6 @@ def func_to_typer(delegated):
 def remove_call_parse(func):
     return func.__wrapped__
 
-
 @func_to_typer(cli.nbdev_new)
 @app.command()
 @delegates(cli.nbdev_new)
@@ -47,6 +46,12 @@ def new(**kwargs):
 @delegates(cli.nbdev_update_license)
 def update_license(**kwargs):
     remove_call_parse(cli.nbdev_update_license)(**kwargs)
+
+# @func_to_typer(cli.nb_export_cli)
+# @app.command()
+# @delegates(cli.nb_export_cli)
+# def export_cli(**kwargs):
+#     remove_call_parse(cli.nb_export_cli)(**kwargs)
 
 
 if __name__ == '__main__':
