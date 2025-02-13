@@ -28,6 +28,8 @@ commands = {
     'conda': release.release_conda,
     'new': cli.nbdev_new,
     'release_both': release.release_both,
+    'release_gh': release.release_gh,
+    'release_git': release.release_git,
     'update_license': cli.nbdev_update_license,
     'watch_export': cli.watch_export
 }
