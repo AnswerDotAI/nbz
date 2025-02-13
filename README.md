@@ -34,12 +34,14 @@ started.
 # make sure nbz package is installed in development mode
 $ pip install -e .
 
-# make changes to cli.py
-# TODO: explore moving code in nbz/cli.py to nbz/core.ipynb
+# make changes to nbs/core.ipynb
 # ...
 
 # compile to have changes apply to nbz
-$ nbz 
+
+$ nbz export
+$ nbz clean
+$ nbz trust
 ```
 
 ## Usage
