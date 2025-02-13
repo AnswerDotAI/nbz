@@ -4,23 +4,25 @@ import typer
 from typing_extensions import Annotated
 from fastcore.docments import *
 from fastcore.all import *
-from nbdev import cli
-from nbdev import clean as n_clean
 from rich import print
+
+# commands
+from nbdev import cli, release
+from nbdev import clean as n_clean
 
 app = typer.Typer()
 
 @app.callback(invoke_without_command=True)
 def helper(ctx: typer.Context):
     """
-    nbdev-cli is a typer-based wrapper around the incredible nbdev project.
+    nbz is a typer-based wrapper around the incredible nbdev project.
     """
     if ctx.invoked_subcommand is None:
         typer.echo(ctx.get_help())
 
-
 commands = {
     'clean':n_clean.nbdev_clean,
+    'bump_version': release.nbdev_bump_version,    
     'new': cli.nbdev_new,
     'update_license': cli.nbdev_update_license
 }
