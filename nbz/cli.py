@@ -1,10 +1,12 @@
+import types
+from functools import wraps
 import typer
 from typing_extensions import Annotated
 from fastcore.docments import *
 from fastcore.all import *
 from nbdev import cli
+from nbdev import clean as n_clean
 from rich import print
-from functools import wraps
 
 app = typer.Typer()
 
@@ -17,41 +19,39 @@ def helper(ctx: typer.Context):
         typer.echo(ctx.get_help())
 
 
-def func_to_typer(delegated):
-    def decorator(func):
-        # Set the function's docstring
-        func.__doc__ = delegated.__doc__
+commands = {
+    'clean':n_clean.nbdev_clean,
+    'new': cli.nbdev_new,
+    'update_license': cli.nbdev_update_license
+}
 
-        # Prep the annotations
-        arguments = docments(delegated, full=True)
-        for arg, meta in arguments.items():
-            if (meta['anno'] is bool_arg): 
-                meta['anno'] = bool
-            func.__annotations__[arg] = Annotated[meta['anno'], typer.Argument()]
-        
-        return func
-    return decorator
+for fname,func in commands.items():
+    # Remove call_parse so it doesn't conflict with typer
+    func = func.__wrapped__
 
-def remove_call_parse(func):
-    return func.__wrapped__
+    # Add to typer.app
+    func = app.command()(func)    
 
-@func_to_typer(cli.nbdev_new)
+    # Prep the annotations
+    arguments = docments(func, full=True)
+    for arg, meta in arguments.items():
+        # print(meta)
+        if (meta['anno'] is bool_arg): 
+            meta['anno'] = bool
+        func.__annotations__[arg] = Annotated[meta['anno'], typer.Argument()]    
+
+    # Fix the name
+    func.__name__ = func.__name__.replace('nbdev_','')
+
+    globals()[fname] = func
+
+
+
+# Not yet implemented
 @app.command()
-@delegates(cli.nbdev_new)
-def new(**kwargs):
-    remove_call_parse(cli.nbdev_new)(**kwargs)
-
-@func_to_typer(cli.nbdev_update_license)
-@app.command()
-@delegates(cli.nbdev_update_license)
-def update_license(**kwargs):
-    remove_call_parse(cli.nbdev_update_license)(**kwargs)
-
-# @func_to_typer(cli.nb_export_cli)
-# @app.command()
-# @delegates(cli.nb_export_cli)
-# def export_cli(**kwargs):
-#     remove_call_parse(cli.nb_export_cli)(**kwargs)
+def export_cli():
+    'Not yet implemented'
+    print(f'[red][b]ERROR: {export_cli.__doc__}[/b][/red]')
 
 
 if __name__ == '__main__':
