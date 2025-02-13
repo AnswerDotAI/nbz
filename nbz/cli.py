@@ -24,7 +24,10 @@ def helper(ctx: typer.Context):
 commands = {
     'bump_version': release.nbdev_bump_version,        
     'clean':n_clean.nbdev_clean,
+    'changelog': release.changelog,
+    'conda': release.release_conda,
     'new': cli.nbdev_new,
+    'release_both': release.release_both,
     'update_license': cli.nbdev_update_license,
     'watch_export': cli.watch_export
 }
@@ -34,37 +37,34 @@ for fname,func in commands.items():
     func = func.__wrapped__
 
     # Add to typer.app
-    func = app.command()(func)    
+    func = app.command()(func)
 
-    # Prep the annotations
+    # Prep the annotations to map accurately to typer
     arguments = docments(func, full=True)
     for arg, meta in arguments.items():
-        if (meta['anno'] is bool_arg): meta['anno'] = bool
-        func.__annotations__[arg] = Annotated[meta['anno'], typer.Argument()]    
+        # This next line might be simplistic and could cause errors
+        if meta['anno'] in (bool_arg, store_true): meta['anno'] = bool
+        func.__annotations__[arg] = Annotated[meta['anno'], typer.Argument()]
 
     # Fix the name
     func.__name__ = func.__name__.replace('nbdev_','')
 
+    # Save to the global namespace
     globals()[fname] = func
-
-
 
 # Not yet implemented
 # TODO: fix store_true on these commands
 nyi_commands = {
-    'changelog': release.changelog,
     'export_cli': cli.nb_export_cli
 }
-
 
 for fname in nyi_commands.keys():
     @app.command()
     def func():
         'Not yet implemented'
-        print(f'[red][b]ERROR: {export_cli.__doc__}[/b][/red]')
+        print(f'[red][b]ERROR: {func.__doc__}[/b][/red]')
     func.__name__ = fname
     globals()[fname] = func
-
 
 if __name__ == '__main__':
     app()
