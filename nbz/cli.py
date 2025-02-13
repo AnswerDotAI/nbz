@@ -25,8 +25,8 @@ commands = {
     'bump_version': release.nbdev_bump_version,        
     'clean':n_clean.nbdev_clean,
     'changelog': release.changelog,
-    'conda': release.release_conda,
-    'new': cli.nbdev_new,
+    'conda': release.release_conda,    
+    'new': cli.nbdev_new,    
     'release_both': release.release_both,
     'release_gh': release.release_gh,
     'release_git': release.release_git,
@@ -49,7 +49,7 @@ for fname,func in commands.items():
         func.__annotations__[arg] = Annotated[meta['anno'], typer.Argument()]
 
     # Fix the name
-    func.__name__ = func.__name__.replace('nbdev_','')
+    func.__name__ = fname
 
     # Save to the global namespace
     globals()[fname] = func
