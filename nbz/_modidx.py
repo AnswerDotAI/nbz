@@ -5,4 +5,4 @@ d = { 'settings': { 'branch': 'main',
                 'doc_host': 'https://pydanny.github.io',
                 'git_url': 'https://github.com/pydanny/nbz',
                 'lib_path': 'nbz'},
-  'syms': {'nbz.core': {'nbz.core.foo': ('core.html#foo', 'nbz/core.py')}}}
+  'syms': {'nbz.core': {'nbz.core.helper': ('core.html#helper', 'nbz/core.py')}}}
