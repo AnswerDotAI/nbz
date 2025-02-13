@@ -59,7 +59,8 @@ for fname,func in commands.items():
     func = func.__wrapped__
 
     # Add to typer.app
-    func = app.command()(func)
+    func = app.command(rich_help_panel=func.__module__)(func)
+
 
     # Prep the annotations to map accurately to typer
     arguments = docments(func, full=True)
@@ -82,7 +83,7 @@ nyi_commands = {
 }
 
 for fname in nyi_commands.keys():
-    @app.command()
+    @app.command(rich_help_panel='Not yet implemented')
     def func():
         'Not yet implemented'
         print(f'[red][b]ERROR: {func.__doc__}[/b][/red]')
