@@ -8,14 +8,14 @@ environment. You write code in notebooks and it exports the result to
 Python flatfiles. It also handles documentation, version releases, and
 so much more.
 
-The goal of this project is to:
+The goal of this project is to do the following, with items 2 and 3
+being potential targets for upstream changes to nbdev:
 
 1.  Wrap the nbdev command-line interface with
     [typer](https://typer.tiangolo.com/) to take advantage of some of
     the features of that framework (formatting, auto-completion, etc)
 2.  Enhance the existing CLI documentation
-3.  Add new features that may not fit in nbdev, or test new ideas to
-    determine if it make sense to add the feature upstream
+3.  Add new features that may or may not fit in nbdev
 
 ## Developer Guide
 

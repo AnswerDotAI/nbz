@@ -11,7 +11,7 @@ from nbdev import cli, release, config, quarto, doclinks, merge, migrate, sync
 from nbdev import clean as nbclean
 from nbdev import test as nbtest
 
-app = typer.Typer()
+app = typer.Typer(rich_markup_mode="markdown")
 
 @app.callback(invoke_without_command=True)
 def helper(ctx: typer.Context):
