@@ -16,6 +16,7 @@ being potential targets for upstream changes to nbdev:
     the features of that framework (formatting, auto-completion, etc)
 2.  Enhance the existing CLI documentation
 3.  Add new features that may or may not fit in nbdev
+4.  Provide an interface for other systems
 
 ## Developer Guide
 
