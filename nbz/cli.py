@@ -20,11 +20,13 @@ def helper(ctx: typer.Context):
     if ctx.invoked_subcommand is None:
         typer.echo(ctx.get_help())
 
+# Commands actually implemented
 commands = {
+    'bump_version': release.nbdev_bump_version,        
     'clean':n_clean.nbdev_clean,
-    'bump_version': release.nbdev_bump_version,    
     'new': cli.nbdev_new,
-    'update_license': cli.nbdev_update_license
+    'update_license': cli.nbdev_update_license,
+    'watch_export': cli.watch_export
 }
 
 for fname,func in commands.items():
@@ -37,9 +39,7 @@ for fname,func in commands.items():
     # Prep the annotations
     arguments = docments(func, full=True)
     for arg, meta in arguments.items():
-        # print(meta)
-        if (meta['anno'] is bool_arg): 
-            meta['anno'] = bool
+        if (meta['anno'] is bool_arg): meta['anno'] = bool
         func.__annotations__[arg] = Annotated[meta['anno'], typer.Argument()]    
 
     # Fix the name
@@ -50,10 +50,20 @@ for fname,func in commands.items():
 
 
 # Not yet implemented
-@app.command()
-def export_cli():
-    'Not yet implemented'
-    print(f'[red][b]ERROR: {export_cli.__doc__}[/b][/red]')
+# TODO: fix store_true on these commands
+nyi_commands = {
+    'changelog': release.changelog,
+    'export_cli': cli.nb_export_cli
+}
+
+
+for fname in nyi_commands.keys():
+    @app.command()
+    def func():
+        'Not yet implemented'
+        print(f'[red][b]ERROR: {export_cli.__doc__}[/b][/red]')
+    func.__name__ = fname
+    globals()[fname] = func
 
 
 if __name__ == '__main__':
