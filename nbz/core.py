@@ -77,7 +77,7 @@ def with_spinner(f):
             TextColumn("[progress.description]{task.description}"),
             transient=True,
         ) as progress:
-            progress.add_task(description="Processing...", transient=False)
+            progress.add_task(description="Processing...", transient=False)            
             try:
                 result = f(*args, **kwargs)
                 return result
@@ -106,7 +106,7 @@ for fname,func in commands.items():
     func.__name__ = fname
     
     # Wrap the function in a spinner
-    func = with_spinner(func)    
+    func = with_spinner(func)
 
     # Save to the global namespace
     globals()[fname] = func    
