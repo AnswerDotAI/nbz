@@ -91,6 +91,9 @@ for fname,func in commands.items():
 
     # Remove call_parse so it doesn't conflict with typer
     func = func.__wrapped__
+    
+    # Wrap the function in a spinner
+    func = with_spinner(func)    
 
     # Add to typer.app and assign to panel
     func = app.command(rich_help_panel=func.__module__)(func)
@@ -104,9 +107,6 @@ for fname,func in commands.items():
 
     # Fix the name
     func.__name__ = fname
-    
-    # Wrap the function in a spinner
-    func = with_spinner(func)
 
     # Save to the global namespace
     globals()[fname] = func    
