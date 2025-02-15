@@ -27,9 +27,15 @@ nbdev_new = cli.nbdev_new.__wrapped__
 @delegates(nbdev_new)
 def new(path: pathlib.Path, **kwargs):
     """
-    Create an nbdev project.
+    Create an nbdev project. Examples:
     
-    Example creating a new nb dev project in the same directory:
+    * In your current directory: `nbz new .`
+    
+    * In a different directory: `nbz new my-project`
+    
+    ---
+    
+    Learn more [nbz.answer.ai/commands#new](https://nbz.answer.ai/commands#new)
     """
     kwargs['path'] = str(path)
     return nbdev_new(**kwargs)
