@@ -93,22 +93,25 @@ for fname,func in commands.items():
     # Wrap the function in a spinner
     func = with_spinner(func)    
 
-    # Add to typer.app and assign to panel
-    panel = func.panel if getattr(func, 'panel', None) else func.__module__
-    func = app.command(rich_help_panel=panel)(func)
+    # dd to typer.app and 
+    kwargs = dict(
+        # Assign to panel
+        rich_help_panel=getattr(func, 'rich_help_panel', func.__module__),
+        no_args_is_help=getattr(func,'no_args_is_help',False)
+    )
+    func = app.command(**kwargs)(func)
 
     # Prep the annotations to map accurately to typer
     arguments = docments(func, full=True)
+    
     for arg, meta in arguments.items():
         # This next line might be simplistic and could cause errors
         if meta['anno'] in (bool_arg, store_true): meta['anno'] = bool
         func.__annotations__[arg] = Annotated[meta['anno'], typer.Argument()]
-
     # Fix the name
     func.__name__ = fname
 
-    # Save to the global namespace
-    globals()[fname] = func    
+    # Save to the global names 
 
 # %% ../nbs/00_core.ipynb 17
 # Not yet implemented

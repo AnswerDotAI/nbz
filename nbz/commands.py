@@ -6,12 +6,13 @@
 __all__ = ['nbdev_new', 'new']
 
 # %% ../nbs/01_commands.ipynb 2
-import types, pathlib
+import types, pathlib, os
 from functools import wraps
 import typer
 from typing_extensions import Annotated
 from fastcore.docments import *
 from fastcore.meta import delegates
+from fastcore.script import call_parse
 from fastcore.utils import *
 from rich import print
 
@@ -25,7 +26,9 @@ from nbdev import test as nbtest
 nbdev_new = cli.nbdev_new.__wrapped__
 
 @delegates(nbdev_new)
-def new(path: pathlib.Path, **kwargs):
+def new(
+    target: Annotated[pathlib.Path, typer.Argument(help="Path to create project")],
+    **kwargs):
     """
     Create an nbdev project. Examples:
     
@@ -37,6 +40,14 @@ def new(path: pathlib.Path, **kwargs):
     
     Learn more [nbz.answer.ai/commands#new](https://nbz.answer.ai/commands#new)
     """
-    kwargs['path'] = str(path)
-    return nbdev_new(**kwargs)
-new.panel = 'Getting started'
+    # kwargs['path'] = str(path)
+    print(f'Changing directory to {target}')
+    olddir = pathlib.Path('.')
+    os.chdir(target)
+    resp=nbdev_new(**kwargs)
+    os.chdir(olddir)
+    print(f'Changing directory back')
+    return resp
+new.rich_help_panel = 'Getting started'
+new.no_args_is_help=False
+
