@@ -77,7 +77,7 @@ def with_spinner(f):
             TextColumn("[progress.description]{task.description}"),
             transient=True,
         ) as progress:
-            progress.add_task(description="Processing...", transient=False)            
+            progress.add_task(description="Processing...", transient=True)            
             try:
                 result = f(*args, **kwargs)
                 return result
