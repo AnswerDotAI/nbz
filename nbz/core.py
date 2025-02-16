@@ -33,7 +33,7 @@ def helper(ctx: typer.Context):
     nbz is a typer-based wrapper around the incredible nbdev project.
     """
     if ctx.invoked_subcommand is None:
-        typer.echo(ctx.get_help())
+        typer.echo(ctx.get_help())       
 
 # %% ../nbs/00_core.ipynb 12
 commands = {
@@ -68,9 +68,9 @@ commands = {
     'watch_export': cli.watch_export
 }
 
-# %% ../nbs/00_core.ipynb 13
+# %% ../nbs/00_core.ipynb 18
 def with_spinner(f):
-    "Wraps a command with a spinner using rich.Progress"
+    "Wraps a command with a spinner using rich.console.status"
     @wraps(f)
     def _inner(*args, **kwargs):
         with console.status("", spinner="dots") as status:          
@@ -81,14 +81,12 @@ def with_spinner(f):
                 raise e
     return _inner
 
-# %% ../nbs/00_core.ipynb 14
-# Preps and adds command to the global namespace
+# %% ../nbs/00_core.ipynb 20
 console = Console()
 for fname,func in commands.items():
 
     # Remove call_parse so it doesn't conflict with typer
-    try: func = func.__wrapped__
-    except AttributeError: pass
+    func = getattr(func, '__wrapped__', func)
     
     # Wrap the function in a spinner
     func = with_spinner(func)    
@@ -112,8 +110,9 @@ for fname,func in commands.items():
     func.__name__ = fname
 
     # Save to the global names 
+    globals()[fname] = func
 
-# %% ../nbs/00_core.ipynb 17
+# %% ../nbs/00_core.ipynb 23
 # Not yet implemented
 # TODO: fix store_true on these commands. 
 nyi_commands = {
@@ -121,7 +120,7 @@ nyi_commands = {
     'export_cli': cli.nb_export_cli,
 }
 
-# %% ../nbs/00_core.ipynb 18
+# %% ../nbs/00_core.ipynb 24
 def add_nyi_command(fname):
     @app.command(rich_help_panel='Not yet implemented')
     def func():
@@ -130,7 +129,7 @@ def add_nyi_command(fname):
     func.__name__ = fname
     globals()[fname] = func
 
-# %% ../nbs/00_core.ipynb 20
+# %% ../nbs/00_core.ipynb 26
 # Add NYI panel
 for fname in nyi_commands.keys():
     add_nyi_command(fname)
