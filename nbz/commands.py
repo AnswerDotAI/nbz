@@ -49,7 +49,7 @@ def check():
         errors.append('[red]No github token.[/red]\n    Fix: [b]Set environment variable for GITHUB_TOKEN or GITHUB_JWT_TOKEN[/b]')
         
     try: 
-        import settings
+        from twine import settings
         import keyring      
 #         cfg = settings.get_repository_config('pypi')
 #         console.print(cfg)
@@ -63,6 +63,7 @@ def check():
         error_console.print('ERROR: nbdev not fully configured yet.')
         for i, error in enumerate(errors): console.print(f'{i+1}. {error}')
         raise typer.Exit(code=1)
+    console.print('[b]Check passed![/b]')
 check.rich_help_panel = 'Getting started'
 check.no_args_is_help=False
 
