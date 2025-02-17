@@ -21,7 +21,7 @@ from rich import print
 from nbdev import cli, release, config, quarto, doclinks, merge, migrate, sync
 from nbdev import clean as nbclean
 from nbdev import test as nbtest
-from .commands import new
+from .commands import *
 
 # %% ../nbs/00_core.ipynb 7
 app = typer.Typer(rich_markup_mode="markdown")
@@ -37,6 +37,9 @@ def helper(ctx: typer.Context):
 
 # %% ../nbs/00_core.ipynb 12
 commands = {
+    'check': check,    
+    'new': new,    
+    
     'bump_version': release.nbdev_bump_version,        
     'clean':nbclean.nbdev_clean,        
     'changelog': release.changelog,
@@ -50,7 +53,6 @@ commands = {
     'install_quarto': quarto.install_quarto,
     'merge': merge.nbdev_merge,
     'migrate': migrate.nbdev_migrate,    
-    'new': new,
 	'prepare': quarto.prepare,
 	'preview': quarto.nbdev_preview,
     'proc_nbs': quarto.nbdev_proc_nbs,
@@ -68,11 +70,11 @@ commands = {
     'watch_export': cli.watch_export
 }
 
-# %% ../nbs/00_core.ipynb 18
+# %% ../nbs/00_core.ipynb 14
 def with_spinner(f):
     "Wraps a command with a spinner using rich.console.status"
     @wraps(f)
-    def _inner(*args, **kwargs):
+    def _inner(*args, **kwargs):        
         with console.status("", spinner="dots") as status:          
             try:
                 result = f(*args, **kwargs)
@@ -81,7 +83,7 @@ def with_spinner(f):
                 raise e
     return _inner
 
-# %% ../nbs/00_core.ipynb 20
+# %% ../nbs/00_core.ipynb 16
 console = Console()
 for fname,func in commands.items():
 
@@ -112,7 +114,7 @@ for fname,func in commands.items():
     # Save to the global names 
     globals()[fname] = func
 
-# %% ../nbs/00_core.ipynb 23
+# %% ../nbs/00_core.ipynb 19
 # Not yet implemented
 # TODO: fix store_true on these commands. 
 nyi_commands = {
@@ -120,7 +122,7 @@ nyi_commands = {
     'export_cli': cli.nb_export_cli,
 }
 
-# %% ../nbs/00_core.ipynb 24
+# %% ../nbs/00_core.ipynb 20
 def add_nyi_command(fname):
     @app.command(rich_help_panel='Not yet implemented')
     def func():
@@ -129,7 +131,7 @@ def add_nyi_command(fname):
     func.__name__ = fname
     globals()[fname] = func
 
-# %% ../nbs/00_core.ipynb 26
+# %% ../nbs/00_core.ipynb 22
 # Add NYI panel
 for fname in nyi_commands.keys():
     add_nyi_command(fname)
