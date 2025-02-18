@@ -40,7 +40,7 @@ commands = {
     'check': check,    
     'new': new,    
     
-    'bump_version': release.nbdev_bump_version,        
+    'bump_version': bump_version, # commands
     'clean':nbclean.nbdev_clean,        
     'changelog': release.changelog,
     'conda': release.release_conda, 
