@@ -24,7 +24,7 @@ from nbdev import clean as nbclean
 from nbdev import test as nbtest
 
 # %% ../nbs/01_commands.ipynb 4
-console = Console()
+console = Console(style='bold')
 error_console = Console(stderr=True, style="bold red")
 
 # %% ../nbs/01_commands.ipynb 6
@@ -132,7 +132,7 @@ def new(
     target: Annotated[pathlib.Path, typer.Argument(help="Path to create project")],
     **kwargs):
     """
-    Create an nbdev project.
+    Create an nbdev project. If the target directory does not exist, it creates it.
     
     Usage:
     
@@ -144,13 +144,15 @@ def new(
     
     Learn more [nbz.answer.ai/commands#new](https://nbz.answer.ai/commands#new)
     """
-    # kwargs['path'] = str(path)
-    print(f'Changing directory to {target}')
+    if not target.exists(): 
+        console.print(f'Creating {target} directory')
+        target.mkdir()
+    console.print(f'Changing directory to {target}')
     olddir = pathlib.Path('.')
     os.chdir(target)
     resp=nbdev_new(**kwargs)
     os.chdir(olddir)
-    print(f'Changing directory back')
+    console.print(f'Changing directory back')
     return resp
 new.rich_help_panel = 'Getting started'
 new.no_args_is_help=False
