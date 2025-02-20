@@ -10,5 +10,4 @@ d = { 'settings': { 'branch': 'main',
                               'nbz.commands.delegates_sorted': ('commands.html#delegates_sorted', 'nbz/commands.py'),
                               'nbz.commands.new': ('commands.html#new', 'nbz/commands.py')},
             'nbz.core': { 'nbz.core.add_nyi_command': ('core.html#add_nyi_command', 'nbz/core.py'),
-                          'nbz.core.helper': ('core.html#helper', 'nbz/core.py'),
-                          'nbz.core.with_spinner': ('core.html#with_spinner', 'nbz/core.py')}}}
+                          'nbz.core.helper': ('core.html#helper', 'nbz/core.py')}}}

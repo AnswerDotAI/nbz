@@ -13,13 +13,18 @@ from typing_extensions import Annotated
 from fastcore.docments import *
 from fastcore.meta import delegates
 from fastcore.script import call_parse
+from fastcore.shutil import rmtree,move
 from fastcore.utils import *
+from nbdev.quarto import nbdev_readme, refresh_quarto_yml, fs_watchdog
 from rich import print
 from rich.console import Console
 from shutil import which
 
 # %% ../nbs/01_commands.ipynb 3
-from nbdev import cli, release, config, quarto, doclinks, merge, migrate, sync
+from nbdev import cli, release, quarto, doclinks, merge, migrate, sync
+from nbdev.cli import _update_repo_meta, extract_tgz, _render_nb
+from nbdev.config import *
+from nbdev.doclinks import nbdev_export
 from nbdev import clean as nbclean
 from nbdev import test as nbtest
 
@@ -132,7 +137,7 @@ def new(
     target: Annotated[pathlib.Path, typer.Argument(help="Path to create project")],
     **kwargs):
     """
-    Create an nbdev project. If the target directory does not exist, it creates it.
+    Create an nbdev project. If the target directory does not exist, creates it.
     
     Usage:
     
@@ -144,16 +149,54 @@ def new(
     
     Learn more [nbz.answer.ai/commands#new](https://nbz.answer.ai/commands#new)
     """
+    # Target directory
     if not target.exists(): 
-        console.print(f'Creating {target} directory')
+        console.print(f'Creating and changing to {target} directory')
         target.mkdir()
-    console.print(f'Changing directory to {target}')
+        os.chdir(target)
     olddir = pathlib.Path('.')
-    os.chdir(target)
-    resp=nbdev_new(**kwargs)
-    os.chdir(olddir)
-    console.print(f'Changing directory back')
-    return resp
+    
+    "Create an nbdev project."
+    from ghapi.core import GhApi
+    nbdev_create_config.__wrapped__(**kwargs)
+    with console.status('',spinner="dots"):
+        cfg = get_config()
+        _update_repo_meta(cfg)
+        path = Path()
+
+        _ORG_OR_USR,_REPOSITORY = 'fastai','nbdev-template'
+        _TEMPLATE = f'{_ORG_OR_USR}/{_REPOSITORY}'
+        template = kwargs.get('template', _TEMPLATE)
+        try: org_or_usr, repo = template.split('/')
+        except ValueError: org_or_usr, repo = _ORG_OR_USR, _REPOSITORY
+
+        tag = kwargs.get('tag', None)
+        if tag is None:
+            with warnings.catch_warnings():
+                warnings.simplefilter('ignore', UserWarning)
+                tag = GhApi(gh_host='https://api.github.com', authenticate=False).repos.get_latest_release(org_or_usr, repo).tag_name
+
+        url = f"https://github.com/{org_or_usr}/{repo}/archive/{tag}.tar.gz"
+        extract_tgz(url)
+        tmpl_path = path/f'{repo}-{tag}'
+
+        cfg.nbs_path.mkdir(exist_ok=True)
+        nbexists = bool(first(cfg.nbs_path.glob('*.ipynb')))
+        _nbs_path_sufs = ('.ipynb','.css')
+        for o in tmpl_path.ls():
+            p = cfg.nbs_path if o.suffix in _nbs_path_sufs else path
+            if o.name == '_quarto.yml': continue
+            if o.name == 'index.ipynb': _render_nb(o, cfg)
+            if o.name == '00_core.ipynb' and not nbexists: move(o, p)
+            elif not (path/o.name).exists(): move(o, p)
+        rmtree(tmpl_path)
+
+        refresh_quarto_yml()
+        nbdev_export.__wrapped__()
+        nbdev_readme.__wrapped__()
+
+        # return back to the original directory
+        os.chdir(olddir)
 new.rich_help_panel = 'Getting started'
 new.no_args_is_help=False
 
