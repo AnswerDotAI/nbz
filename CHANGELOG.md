@@ -2,6 +2,11 @@
 
 <!-- do not remove -->
 
+## 0.0.2
+
+- Many small changes
+
+
 ## 0.0.1
 
 ### New Features
