@@ -92,7 +92,8 @@ for fname,func in commands.items():
     arguments = docments(func, full=True)
     
     for arg, meta in arguments.items():
-        # This next line might be simplistic and could cause errors
+        # This next two lines might be simplistic and could cause errors                
+        if isinstance(meta['anno'], str) and meta['anno'] == 'store_true': meta['anno'] = bool
         if meta['anno'] in (bool_arg, store_true): meta['anno'] = bool
         func.__annotations__[arg] = Annotated[meta['anno'], typer.Argument()]
     # Fix the name
@@ -105,8 +106,9 @@ for fname,func in commands.items():
 # Not yet implemented
 # TODO: fix store_true on these commands. 
 nyi_commands = {
-    'export_notebook': AttrDict(dict(rich_help_panel='exporting', purpose='Replaces nb_export')),
+#     'export_notebook': AttrDict(dict(rich_help_panel='exporting', purpose='Replaces nb_export')),
     'export_cli': cli.nb_export_cli,
+    'export_notebook': cli.nb_export_cli, # commands
 }
 
 # %% ../nbs/00_core.ipynb 18
