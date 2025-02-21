@@ -42,6 +42,7 @@ commands = {
     'new': new,    
     
     'export': export, 
+    'export_nb': export_nb,
     
     'bump_version': bump_version, # commands
     'clean':nbclean.nbdev_clean,        
@@ -108,7 +109,7 @@ for fname,func in commands.items():
 nyi_commands = {
 #     'export_notebook': AttrDict(dict(rich_help_panel='exporting', purpose='Replaces nb_export')),
     'export_cli': cli.nb_export_cli,
-    'export_notebook': cli.nb_export_cli, # commands
+#     'export_notebook': cli.nb_export_cli, # commands
 }
 
 # %% ../nbs/00_core.ipynb 18
