@@ -38,9 +38,14 @@ def helper(ctx: typer.Context):
 
 # %% ../nbs/00_core.ipynb 12
 commands = {
-    'check': check,    
+    # Installation
+    'install': install,    
+    'check': check,
+    
+    # Getting started
     'new': new,    
     
+    # Exporting
     'export': export, 
     'export_nb': export_nb,
     
@@ -51,10 +56,8 @@ commands = {
     'create_config': config.nbdev_create_config,  
     'docs': quarto.nbdev_docs,
     'filter': cli.nbdev_filter,
-    'fix': merge.nbdev_fix,
-    'install': quarto.install,
+    'fix': merge.nbdev_fix,    
     'install_hooks': nbclean.nbdev_install_hooks,
-    'install_quarto': quarto.install_quarto,
     'merge': merge.nbdev_merge,
     'migrate': migrate.nbdev_migrate,    
 	'prepare': quarto.prepare,
@@ -105,11 +108,8 @@ for fname,func in commands.items():
 
 # %% ../nbs/00_core.ipynb 17
 # Not yet implemented
-# TODO: fix store_true on these commands. 
 nyi_commands = {
-#     'export_notebook': AttrDict(dict(rich_help_panel='exporting', purpose='Replaces nb_export')),
     'export_cli': cli.nb_export_cli,
-#     'export_notebook': cli.nb_export_cli, # commands
 }
 
 # %% ../nbs/00_core.ipynb 18
