@@ -10,6 +10,7 @@ import types
 from functools import wraps
 import typer
 from typing_extensions import Annotated
+from fastcore.basics import *
 from fastcore.docments import *
 from fastcore.script import *
 from fastcore.test import *
@@ -39,6 +40,8 @@ def helper(ctx: typer.Context):
 commands = {
     'check': check,    
     'new': new,    
+    
+    'export': export, 
     
     'bump_version': bump_version, # commands
     'clean':nbclean.nbdev_clean,        
@@ -102,7 +105,7 @@ for fname,func in commands.items():
 # Not yet implemented
 # TODO: fix store_true on these commands. 
 nyi_commands = {
-    'export': doclinks.nbdev_export,
+    'export_notebook': AttrDict(dict(rich_help_panel='exporting', purpose='Replaces nb_export')),
     'export_cli': cli.nb_export_cli,
 }
 
