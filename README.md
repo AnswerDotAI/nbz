@@ -76,92 +76,45 @@ package manager specific guidelines on
 [conda](https://anaconda.org/pydanny/nbz) and
 [pypi](https://pypi.org/project/nbz/) respectively.
 
-## How to use
+## Using nbz
 
-Once installed, you can call help by typing out `nbz` at the
-command-line or `!nbz` in a notebook cell:
+Once you’ve installed `nbz`, check that all dependencies have been
+installed and secrets have been configured with the
+[`check`](https://pydanny.github.io/nbz/commands.html#check) command:
 
-``` plaintext
-Usage: nbz [OPTIONS] COMMAND [ARGS]...
-
- nbz is a typer-based wrapper around the incredible nbdev project.
-
-╭─ Options ─────────────────────────────────────────────────────────────────╮
-│ --install-completion          Install completion for the current shell.   │
-│ --show-completion             Show completion for the current shell, to   │
-│                               copy it or customize the installation.      │
-│ --help                        Show this message and exit.                 │
-╰───────────────────────────────────────────────────────────────────────────╯
-╭─ nbdev.release ───────────────────────────────────────────────────────────╮
-│ bump-version     Increment version in settings.ini by one                 │
-│ changelog        Create a CHANGELOG.md file from closed and labeled       │
-│                  GitHub issues                                            │
-│ conda            Create a meta.yaml file ready to be built into a         │
-│                  package, and optionally build and upload it              │
-│ pypi             Create and upload Python package to PyPI                 │
-│ release-both     Release both conda and PyPI packages                     │
-│ release-gh       Calls nbdev_changelog, lets you edit the result, then    │
-│                  pushes to git and calls nbdev_release_git                │
-│ release-git      Tag and create a release in GitHub for the current       │
-│                  version                                                  │
-│ requirements     Writes a requirements.txt file to directory based on     │
-│                  settings.ini.                                            │
-╰───────────────────────────────────────────────────────────────────────────╯
-╭─ nbdev.clean ─────────────────────────────────────────────────────────────╮
-│ clean            Clean all notebooks in fname to avoid merge conflicts    │
-│ install-hooks    Install Jupyter and git hooks to automatically clean,    │
-│                  trust, and fix merge conflicts in notebooks              │
-│ trust            Trust notebooks matching fname                           │
-╰───────────────────────────────────────────────────────────────────────────╯
-╭─ nbdev.config ────────────────────────────────────────────────────────────╮
-│ create-config    Create a config file.                                    │
-╰───────────────────────────────────────────────────────────────────────────╯
-╭─ nbdev.quarto ────────────────────────────────────────────────────────────╮
-│ docs             Create Quarto docs and README.md                         │
-│ install          Install Quarto and the current library                   │
-│ install-quarto   Install latest Quarto on macOS or Linux, prints          │
-│                  instructions for Windows                                 │
-│ prepare          Export, test, and clean notebooks, and render README if  │
-│                  needed                                                   │
-│ preview          Preview docs locally                                     │
-│ proc-nbs         Process notebooks in path for docs rendering             │
-│ readme           Create README.md from readme_nb (index.ipynb by default) │
-│ sidebar          Create sidebar.yml                                       │
-╰───────────────────────────────────────────────────────────────────────────╯
-╭─ nbdev.cli ───────────────────────────────────────────────────────────────╮
-│ filter           A notebook filter for Quarto                             │
-│ new              Create an nbdev project.                                 │
-│ update-license   Allows you to update the license of your project.        │
-│ watch-export     Use nb_export on ipynb files in nbs directory on changes │
-│                  using nbdev config if available                          │
-╰───────────────────────────────────────────────────────────────────────────╯
-╭─ nbdev.merge ─────────────────────────────────────────────────────────────╮
-│ fix              Create working notebook from conflicted notebook nbname  │
-│ merge            Git merge driver for notebooks                           │
-╰───────────────────────────────────────────────────────────────────────────╯
-╭─ nbdev.migrate ───────────────────────────────────────────────────────────╮
-│ migrate          Convert all markdown and notebook files in path from v1  │
-│                  to v2                                                    │
-╰───────────────────────────────────────────────────────────────────────────╯
-╭─ nbdev.test ──────────────────────────────────────────────────────────────╮
-│ test             Test in parallel notebooks matching path, passing along  │
-│                  flags                                                    │
-╰───────────────────────────────────────────────────────────────────────────╯
-╭─ nbdev.sync ──────────────────────────────────────────────────────────────╮
-│ update           Propagate change in modules matching fname to notebooks  │
-│                  that created them                                        │
-╰───────────────────────────────────────────────────────────────────────────╯
-╭─ Not yet implemented ─────────────────────────────────────────────────────╮
-│ export           Not yet implemented                                      │
-│ export-cli       Not yet implemented                                      │
-╰───────────────────────────────────────────────────────────────────────────╯
+``` bash
+nbz check
 ```
 
-To call one of these commands, call it as `nbz COMMAND`. So to create a
-new notebook you would type:
+Now let’s create a new project, which we’ll call silo. From the
+directory where you create your projects, run the following command:
 
 ``` sh
-mkdir my-project
-cd my-project
-nbz new
+nbz new silo
+```
+
+This will attempt to infer your prefences from git, but for things it
+can’t figure out, it will prompt you for answers:
+
+``` bash
+Creating and changing to silo directory
+repo = nbz # Automatically inferred from git
+branch = main # Automatically inferred from git
+user = pydanny # Automatically inferred from git
+author = Daniel Roy Greenfeld # Automatically inferred from git
+author_email = daniel@feldroy.com # Automatically inferred from git
+description = nbz is a typer-based wrapper around the incredible nbdev project. # Automatically inferred from git
+settings.ini created.
+pandoc -o README.md
+  to: >-
+    commonmark+autolink_bare_uris+emoji+footnotes+gfm_auto_identifiers+pipe_tables+strikeout+task_lists+tex_math_dollars
+  output-file: index.html
+  standalone: true
+  default-image-extension: png
+
+metadata
+  description: nbz is a typer-based wrapper around the incredible nbdev project.
+  title: nbz
+
+Output created: _docs/README.md
 ```

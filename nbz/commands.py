@@ -142,7 +142,19 @@ def export(
     path:Annotated[pathlib.Path, typer.Argument(help="Export notebooks in `path` to Python modules.")],
     procs: Annotated[List[Procs], typer.Option(help='tokens naming the export processors to use.')] = ['black_format'],
     **kwargs):
-    "Export notebooks in `path` to Python modules"
+    """
+    Export notebooks in `path` to Python modules.
+    
+    Usage: 
+    
+    * `nbz export .`
+    
+    * `nbz export path/to/notebook`
+    
+    ---
+    
+    Learn more [nbz.answer.ai/commands#export](https://nbz.answer.ai/commands#export)
+    """    
     if isinstance(path, str): path=pathlib.Path(path)
     if os.environ.get('IN_TEST',0): return
     if not is_nbdev(): raise Exception('`nbdev_export` must be called from a directory within a nbdev project.')
