@@ -6,10 +6,10 @@
 Check out the [video
 demo](https://www.loom.com/share/5bbc2abcc73d45498be4259cb108dc64?sid=4b367d88-a20d-45d2-bea7-e569959e9e35)!
 
-[nbdev](https://nbdev.fast.ai/) is an incredible software development
-environment. You write code in notebooks and it exports the result to
-Python flatfiles. It also handles documentation, version releases, and
-so much more.
+[nbdev](https://nbdev.fast.ai/) (*pronounced ‘en-bee-zed’*) is an
+incredible software development environment. You write code in notebooks
+and it exports the result to Python flatfiles. It also handles
+documentation, version releases, and so much more.
 
 The goal of this project is to do the following, with items 2 and 3
 being potential targets for upstream changes to nbdev:
