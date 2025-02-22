@@ -85,9 +85,11 @@ console = Console()
 for fname,func in commands.items():
 
     # Remove call_parse so it doesn't conflict with typer
-    func = getattr(func, '__wrapped__', func)
+    if getattr(func, 'call_parse_gone', False):
+        print(f'{func.__wrapped__=}')
+    else: func = getattr(func, '__wrapped__', func)
 
-    # dd to typer.app and 
+    # add to typer.app and 
     kwargs = dict(
         # Assign to panel
         rich_help_panel=getattr(func, 'rich_help_panel', func.__module__),
