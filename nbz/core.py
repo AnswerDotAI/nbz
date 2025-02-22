@@ -49,7 +49,11 @@ commands = {
     'export': export, 
     'export_nb': export_nb,
     
-    'bump_version': bump_version, # commands
+    # Releasing
+    'bump_version': bump_version,
+    'release_git': release_git,    
+    
+    # Legacy
     'clean':nbclean.nbdev_clean,        
     'changelog': release.changelog,
     'conda': release.release_conda, 
@@ -66,8 +70,7 @@ commands = {
     'pypi': release.release_pypi, 
 	'readme': quarto.nbdev_readme,
     'release_both': release.release_both,
-    'release_gh': release.release_gh,
-    'release_git': release.release_git,       
+    'release_gh': release.release_gh,    
     'requirements': release.write_requirements,
     'sidebar': quarto.nbdev_sidebar,
     'test': nbtest.nbdev_test,

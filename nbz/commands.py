@@ -4,7 +4,8 @@
 
 # %% auto 0
 __all__ = ['console', 'error_console', 'nbdev_bump_version', 'Procs', 'nb_export_cli', 'orig_install', 'nbdev_new',
-           'delegates_sorted', 'bump_version', 'check', 'export', 'export_nb', 'install', 'new']
+           'nbdev_release_git', 'delegates_sorted', 'bump_version', 'check', 'export', 'export_nb', 'install', 'new',
+           'release_git']
 
 # %% ../nbs/01_commands.ipynb 2
 import types, pathlib, os
@@ -22,7 +23,7 @@ from rich.console import Console
 from shutil import which
 
 # %% ../nbs/01_commands.ipynb 3
-from nbdev import cli, release, quarto, doclinks, merge, migrate, sync
+from nbdev import cli, release, quarto, doclinks, merge, migrate, sync, release
 from nbdev.cli import _update_repo_meta, extract_tgz, _render_nb, nb_export_cli
 from nbdev.config import *
 from nbdev.doclinks import *
@@ -75,7 +76,7 @@ def bump_version(**kwargs):
     """
     Bump the version of a project in `settings.ini` and `__version__` within `__init__.py`.
     
-    Usage:    
+    Examples:    
     
     * `nbz bump-version` will increment a 0.0.1 to 0.0.2
     
@@ -90,7 +91,7 @@ def bump_version(**kwargs):
     Learn more [nbz.answer.ai/commands#version-bump](https://nbz.answer.ai/commands#version-bump)
     """        
     return nbdev_bump_version(**kwargs)
-bump_version.rich_help_panel = 'nbdev.release'
+bump_version.rich_help_panel = 'Releasing versions'
 bump_version.no_args_is_help=False
 
 # %% ../nbs/01_commands.ipynb 10
@@ -98,7 +99,7 @@ def check():
     """
     Check that all the components are configured.
     
-    Usage:    
+    Example:    
     
     * `nbz check`
     
@@ -145,7 +146,7 @@ def export(
     """
     Export notebooks in `path` to Python modules.
     
-    Usage: 
+    Examples: 
     
     * `nbz export .`
     
@@ -181,7 +182,7 @@ def export_nb(
     """
     Export a single nbdev notebook to a python script.
     
-    Usage: 
+    Example: 
     
     * `nbz export-nb path/to/notebook.ipynb`
     
@@ -204,7 +205,7 @@ def install():
     """
     Installs Quarto and the current library.
 
-    For Linux and Mac will request your system password. For Windows, will print installation instructions. Usage:
+    For Linux and Mac will request your system password. For Windows, will print installation instructions. Example:
 
     * `nbz install`
 
@@ -229,7 +230,7 @@ def new(
     """
     Create an nbdev project. If the target directory does not exist, creates it.
     
-    Usage:
+    Examples:
     
     * In your current directory: `nbz new .`
     
@@ -290,3 +291,16 @@ def new(
 new.rich_help_panel = 'Getting started'
 new.no_args_is_help=False
 
+# %% ../nbs/01_commands.ipynb 16
+nbdev_release_git = release.release_git.__wrapped__ # remove call_parse
+
+@delegates_sorted(nbdev_release_git)
+def release_git(**kwargs):
+    """
+    Tag and create a release in GitHub for the current version.
+    
+    
+    """
+    nbdev_release_git(**kwargs)
+release_git.rich_help_panel = 'Releasing versions'
+release_git.no_args_is_help=False    
