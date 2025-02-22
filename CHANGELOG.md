@@ -6,7 +6,7 @@
 
 - Convert nbdev_release_git to nbz release-git ([#43](https://github.com/AnswerDotAI/nbz/issues/43))
 
-- Improved README with a "get started" section ((#51)[Improved README with a "get started" section](https://github.com/AnswerDotAI/nbz/issues/51))
+- Improved README with a "get started" section ([#51](https://github.com/AnswerDotAI/nbz/issues/51))
 
 - Convert nbdev_install to nbz install ([#30](https://github.com/AnswerDotAI/nbz/issues/30))
 

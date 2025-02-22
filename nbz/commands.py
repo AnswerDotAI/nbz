@@ -4,8 +4,8 @@
 
 # %% auto 0
 __all__ = ['console', 'error_console', 'nbdev_bump_version', 'Procs', 'nb_export_cli', 'orig_install', 'nbdev_new',
-           'nbdev_release_git', 'delegates_sorted', 'bump_version', 'check', 'export', 'export_nb', 'install', 'new',
-           'release_git']
+           'nbdev_release_git', 'prompt_help', 'delegates_sorted', 'bump_version', 'check', 'export', 'export_nb',
+           'install', 'new', 'release_git']
 
 # %% ../nbs/01_commands.ipynb 2
 import types, pathlib, os
@@ -293,14 +293,25 @@ new.no_args_is_help=False
 
 # %% ../nbs/01_commands.ipynb 16
 nbdev_release_git = release.release_git.__wrapped__ # remove call_parse
+prompt_help = "Confirm before deploying new version?"
 
 @delegates_sorted(nbdev_release_git)
-def release_git(**kwargs):
+def release_git(
+    confirm_release: Annotated[
+        bool,
+        typer.Option(help='Confirm before deploying new version',
+                     prompt='Okay to release new version on GitHub?')]=False,
+    **kwargs):
     """
     Tag and create a release in GitHub for the current version.
     
+    Example:
     
+    * `nbz release-git`
     """
+    if not confirm_release:
+        error_console.print('Confirmation to release not granted.')
+        raise typer.Abort()
     nbdev_release_git(**kwargs)
 release_git.rich_help_panel = 'Releasing versions'
 release_git.no_args_is_help=False    

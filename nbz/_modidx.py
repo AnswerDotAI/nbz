@@ -2,8 +2,8 @@
 
 d = { 'settings': { 'branch': 'main',
                 'doc_baseurl': '/nbz',
-                'doc_host': 'https://pydanny.github.io',
-                'git_url': 'https://github.com/pydanny/nbz',
+                'doc_host': 'https://answerdotai.github.io',
+                'git_url': 'https://github.com/answerdotai/nbz',
                 'lib_path': 'nbz'},
   'syms': { 'nbz.commands': { 'nbz.commands.bump_version': ('commands.html#bump_version', 'nbz/commands.py'),
                               'nbz.commands.check': ('commands.html#check', 'nbz/commands.py'),
