@@ -51,6 +51,7 @@ commands = {
     
     # Releasing
     'bump_version': bump_version,
+    'unbump_version': unbump_version,
     'release_git': release_git,    
     
     # Legacy
@@ -85,8 +86,7 @@ console = Console()
 for fname,func in commands.items():
 
     # Remove call_parse so it doesn't conflict with typer
-    if getattr(func, 'call_parse_gone', False):
-        print(f'{func.__wrapped__=}')
+    if getattr(func, 'call_parse_gone', False): pass
     else: func = getattr(func, '__wrapped__', func)
 
     # add to typer.app and 
