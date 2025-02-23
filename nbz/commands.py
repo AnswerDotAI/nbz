@@ -106,7 +106,7 @@ def bump_version(part: int # Zero index of the part to change.
 
     ---
     
-    Learn more [nbz.answer.ai/commands#bump-version](https://nbz.answer.ai/commands#bump-version)
+    Learn more [answerdotai.github.io/nbz/commands.html#bump_version](https://answerdotai.github.io/nbz/commands.html#bump_version)
     """
     part = int(part)
     if part < 0 or part > 2:
@@ -122,15 +122,15 @@ def unbump_version(
     """
     Unbump the version of a project in `settings.ini` and `__version__` within `__init__.py`.
     
-    Example:    
-    
+    Example:
+
     * `nbz unbump-version` will prompt the user to confirm the unbump
-    
+
     * `nbz unbump-version --confirm` won't prompt the user
-    
+
     ---
     
-    Learn more [nbz.answer.ai/commands#unbump-version](https://nbz.answer.ai/commands#unbump-version)
+    Learn more [answerdotai.github.io/nbz/commands.html#unbump_version](https://answerdotai.github.io/nbz/commands.html#unbump_version)
     """
     if not confirm and not typer.confirm('Are you sure you want to unbump the version'):
         typer.Abort()
@@ -147,7 +147,7 @@ def check():
     
     ---
     
-    Learn more [nbz.answer.ai/commands#check](https://nbz.answer.ai/commands#check)
+    Learn more [answerdotai.github.io/nbz/commands.html#check](https://answerdotai.github.io/nbz/commands.html#check)
     """
     errors=[]
     
@@ -196,7 +196,7 @@ def export(
     
     ---
     
-    Learn more [nbz.answer.ai/commands#export](https://nbz.answer.ai/commands#export)
+    Learn more [answerdotai.github.io/nbz/commands.html#export](https://answerdotai.github.io/nbz/commands.html#export)
     """    
     if isinstance(path, str): path=pathlib.Path(path)
     if os.environ.get('IN_TEST',0): return
@@ -230,7 +230,7 @@ def export_nb(
     
     ---
     
-    Learn more [nbz.answer.ai/commands#export-nb](https://nbz.answer.ai/commands#export-nb)
+    Learn more [answerdotai.github.io/nbz/commands.html#export_nb](https://answerdotai.github.io/nbz/commands.html#export_nb)
     """
     kwargs['nbname'] = target
     nb_export_cli(**kwargs)
@@ -251,7 +251,7 @@ def install():
 
     ---
 
-    Learn more [nbz.answer.ai/commands#install](https://nbz.answer.ai/commands#install)
+    Learn more [answerdotai.github.io/nbz/commands.html#install](https://answerdotai.github.io/nbz/commands.html#install)
 
     """
     orig_install = orig_install.__wrapped__ # remove call_parse
@@ -275,7 +275,7 @@ def new(
     
     ---
     
-    Learn more [nbz.answer.ai/commands#new](https://nbz.answer.ai/commands#new)
+    Learn more [answerdotai.github.io/nbz/commands.html#new](https://answerdotai.github.io/nbz/commands.html#new)
     """
     # Target directory
     if not target.exists(): 
@@ -345,6 +345,11 @@ def release_git(
     Example:
     
     * `nbz release-git`
+    
+    ---
+    
+        Learn more [answerdotai.github.io/nbz/commands.html#release_git](https://answerdotai.github.io/nbz/commands.html#release_git)
+    
     """
     if not confirm_release:
         error_console.print('Confirmation to release not granted.')
