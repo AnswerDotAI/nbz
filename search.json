@@ -1,0 +1,112 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "nbz",
+    "section": "",
+    "text": "Check out the video demo!\nnbdevis an incredible software development environment. You write code in notebooks and it exports the result to Python flatfiles. It also handles documentation, version releases, and so much more.\nThe goal of this project is to do the following, with items 2 and 3 being potential targets for upstream changes to nbdev:",
+    "crumbs": [
+      "nbz"
+    ]
+  },
+  {
+    "objectID": "index.html#developer-guide",
+    "href": "index.html#developer-guide",
+    "title": "nbz",
+    "section": "Developer Guide",
+    "text": "Developer Guide\nIf you are new to using nbdev here are some useful pointers to get you started.\n\nInstall nbz in Development mode\n# make sure nbz package is installed in development mode\n$ pip install -e .\n\n# make changes to nbs/core.ipynb\n# ...\n\n# compile to have changes apply to nbz\n\n$ nbz export\n$ nbz clean\n$ nbz trust",
+    "crumbs": [
+      "nbz"
+    ]
+  },
+  {
+    "objectID": "index.html#usage",
+    "href": "index.html#usage",
+    "title": "nbz",
+    "section": "Usage",
+    "text": "Usage\n\nInstallation\nInstall latest from the GitHub repository:\n$ pip install git+https://github.com/pydanny/nbz.git\nCOMING SOON: or from conda\n$ conda install -c pydanny nbz\nCOMING SOON: or from pypi\n$ pip install nbz\n\n\nDocumentation\nDocumentation can be found hosted on this GitHub repository’s pages. Additionally you can find package manager specific guidelines on conda and pypi respectively.",
+    "crumbs": [
+      "nbz"
+    ]
+  },
+  {
+    "objectID": "index.html#using-nbz",
+    "href": "index.html#using-nbz",
+    "title": "nbz",
+    "section": "Using nbz",
+    "text": "Using nbz\nOnce you’ve installed nbz, check that all dependencies have been installed and secrets have been configured with the check command:\nnbz check\nNow let’s create a new project, which we’ll call silo. From the directory where you create your projects, run the following command:\nnbz new silo\nThis will attempt to infer your prefences from git, but for things it can’t figure out, it will prompt you for answers:\nCreating and changing to silo directory\nrepo = nbz # Automatically inferred from git\nbranch = main # Automatically inferred from git\nuser = pydanny # Automatically inferred from git\nauthor = Daniel Roy Greenfeld # Automatically inferred from git\nauthor_email = daniel@feldroy.com # Automatically inferred from git\ndescription = nbz is a typer-based wrapper around the incredible nbdev project. # Automatically inferred from git\nsettings.ini created.\npandoc -o README.md\n  to: &gt;-\n    commonmark+autolink_bare_uris+emoji+footnotes+gfm_auto_identifiers+pipe_tables+strikeout+task_lists+tex_math_dollars\n  output-file: index.html\n  standalone: true\n  default-image-extension: png\n\nmetadata\n  description: nbz is a typer-based wrapper around the incredible nbdev project.\n  title: nbz\n\nOutput created: _docs/README.md",
+    "crumbs": [
+      "nbz"
+    ]
+  },
+  {
+    "objectID": "commands.html",
+    "href": "commands.html",
+    "title": "commands",
+    "section": "",
+    "text": "source\n\n\n\n as_command (rich_help_panel:str, remove_call_parse:bool=True,\n             no_args_is_help:bool=False)\n\nDecorator that converts a function to an nbz command.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nrich_help_panel\nstr\n\nWhich CLI panel to put command in\n\n\nremove_call_parse\nbool\nTrue\nWhether or not this function has had call_parse attached\n\n\nno_args_is_help\nbool\nFalse\nDefault to help if no args passed\n\n\n\n\nsource\n\n\n\n\n delegates_sorted (to:function=None, keep=False, but:list=None)\n\nDecorator: replace **kwargs in signature with params from to. Sorts arguments.\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nto\nfunction\nNone\nDelegatee\n\n\nkeep\nbool\nFalse\nKeep kwargs in decorated function?\n\n\nbut\nlist\nNone\nExclude these parameters from signature",
+    "crumbs": [
+      "commands"
+    ]
+  },
+  {
+    "objectID": "commands.html#utilities",
+    "href": "commands.html#utilities",
+    "title": "commands",
+    "section": "",
+    "text": "source\n\n\n\n as_command (rich_help_panel:str, remove_call_parse:bool=True,\n             no_args_is_help:bool=False)\n\nDecorator that converts a function to an nbz command.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nrich_help_panel\nstr\n\nWhich CLI panel to put command in\n\n\nremove_call_parse\nbool\nTrue\nWhether or not this function has had call_parse attached\n\n\nno_args_is_help\nbool\nFalse\nDefault to help if no args passed\n\n\n\n\nsource\n\n\n\n\n delegates_sorted (to:function=None, keep=False, but:list=None)\n\nDecorator: replace **kwargs in signature with params from to. Sorts arguments.\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nto\nfunction\nNone\nDelegatee\n\n\nkeep\nbool\nFalse\nKeep kwargs in decorated function?\n\n\nbut\nlist\nNone\nExclude these parameters from signature",
+    "crumbs": [
+      "commands"
+    ]
+  },
+  {
+    "objectID": "commands.html#commands",
+    "href": "commands.html#commands",
+    "title": "commands",
+    "section": "Commands",
+    "text": "Commands\n\nsource\n\nbump_version\n\n bump_version (part:int)\n\n*Bump the version of a project in settings.ini and __version__ within __init__.py. PART must be 0, 1, or 2.\nExamples:\n\nnbz bump-version 0 will increment a 0.0.1 to 1.0.1\nnbz bump-version 1 will increment a 0.0.1 to 0.1.1\nnbz bump-version 2 will increment a 0.0.1 to 0.0.2\n\n\nLearn more answerdotai.github.io/nbz/commands.html#bump_version*\n\n\n\n\nType\nDetails\n\n\n\n\npart\nint\nZero index of the part to change.\n\n\n\n\nsource\n\n\nunbump_version\n\n unbump_version (confirm:bool=False)\n\n*Unbump the version of a project in settings.ini and __version__ within __init__.py.\nExample:\n\nnbz unbump-version will prompt the user to confirm the unbump\nnbz unbump-version --confirm won’t prompt the user\n\n\nLearn more answerdotai.github.io/nbz/commands.html#unbump_version*\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nconfirm\nbool\nFalse\nConfirm before unbumping\n\n\n\n\nsource\n\n\ncheck\n\n check ()\n\n*Check that all the components are configured.\nExample:\n\nnbz check\n\n\nLearn more answerdotai.github.io/nbz/commands.html#check*\n\nsource\n\n\nexport\n\n export (path:typing.Annotated[pathlib.Path,&lt;typer.models.ArgumentInfoobje\n         ctat0x7fe65536ab00&gt;], procs:Annotated[List[fastcore.basics.Procs]\n         ,&lt;typer.models.OptionInfoobjectat0x7fe65536aa10&gt;]=['black_format'\n         ], file_glob:str='*.ipynb', file_re:str=None, folder_re:str=None,\n         skip_file_glob:str=None, skip_file_re:str='^[_.]',\n         skip_folder_re:str='^[_.]', symlinks:bool=False)\n\n*Export notebooks in path to Python modules.\nExamples:\n\nnbz export .\nnbz export path/to/notebook\n\n\nLearn more answerdotai.github.io/nbz/commands.html#export*\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\npath\nstr\nNone\nPath to notebooks\n\n\nprocs\nAnnotated\n[‘black_format’]\n\n\n\nfile_glob\nstr\n*.ipynb\nOnly include files matching glob\n\n\nfile_re\nstr\nNone\nOnly include files matching regex\n\n\nfolder_re\nstr\nNone\nOnly enter folders matching regex\n\n\nskip_file_glob\nstr\nNone\nSkip files matching glob\n\n\nskip_file_re\nstr\n^[_.]\nSkip files matching regex\n\n\nskip_folder_re\nstr\n^[_.]\nSkip folders matching regex\n\n\nsymlinks\nbool\nFalse\nFollow symlinks?\n\n\n\n\nsource\n\n\nexport_nb\n\n export_nb (target:typing.Annotated[pathlib.Path,&lt;typer.models.ArgumentInf\n            oobjectat0x7fe656944760&gt;], name:typing.Annotated[str,&lt;typer.mo\n            dels.OptionInfoobjectat0x7fe656944940&gt;]=None, lib_path:typing.\n            Annotated[str,&lt;typer.models.OptionInfoobjectat0x7fe656933100&gt;]\n            =None, debug:store_true=False)\n\n*Export a single nbdev notebook to a python script.\nExample:\n\nnbz export-nb path/to/notebook.ipynb\n\n\nLearn more answerdotai.github.io/nbz/commands.html#export_nb*\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\ntarget\nAnnotated\n\n\n\n\nname\nstr\nNone\nName of python script {name}.py to create.\n\n\nlib_path\nstr\nNone\nPath to destination library. If not in a nbdev project, defaults to current directory.\n\n\ndebug\nstore_true\nFalse\nDebug flag\n\n\n\n\nsource\n\n\ninstall\n\n install ()\n\n*Installs Quarto and the current library.\nFor Linux and Mac will request your system password. For Windows, will print installation instructions. Example:\n\nnbz install\n\n\nLearn more answerdotai.github.io/nbz/commands.html#install*\n\nsource\n\n\nnew\n\n new (target:typing.Annotated[pathlib.Path,&lt;typer.models.ArgumentInfoobjec\n      tat0x7fe656964c40&gt;], allowed_cell_metadata_keys='',\n      allowed_metadata_keys='', audience='Developers', author:str=None,\n      author_email:str=None, black_formatting:&lt;function bool_arg&gt;=False,\n      branch:str=None, cell_number:&lt;function bool_arg&gt;=True,\n      cfg_name:str='settings.ini', clean_ids:&lt;function bool_arg&gt;=True,\n      clear_all:&lt;function bool_arg&gt;=False, copyright:str=None,\n      custom_sidebar:&lt;function bool_arg&gt;=False, description:str=None,\n      doc_baseurl='/%(repo)s', doc_host='https://%(user)s.github.io',\n      doc_path:pathlib.Path='_docs',\n      git_url='https://github.com/%(user)s/%(repo)s',\n      jupyter_hooks:&lt;function bool_arg&gt;=False, keywords='nbdev jupyter\n      notebook python', language='English', lib_name='%(repo)s',\n      lib_path:pathlib.Path=None, license='apache2', min_python='3.7',\n      nbs_path:pathlib.Path='nbs', path:str='.',\n      put_version_in_init:&lt;function bool_arg&gt;=True,\n      readme_nb='index.ipynb', recursive:&lt;function bool_arg&gt;=True,\n      repo:str=None, skip_procs:str='', status='3', title='%(lib_name)s',\n      tst_flags='notest', user:str=None, version='0.0.1')\n\n*Create an nbdev project. If the target directory does not exist, creates it.\nExamples:\n\nIn your current directory: nbz new .\nIn a different directory: nbz new my-project\n\n\nLearn more answerdotai.github.io/nbz/commands.html#new*\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\ntarget\nAnnotated\n\n\n\n\nallowed_cell_metadata_keys\nstr\n\nPreserve the list of keys in cell level metadata\n\n\nallowed_metadata_keys\nstr\n\nPreserve the list of keys in the main notebook metadata\n\n\naudience\nstr\nDevelopers\nIntended audience PyPI classifier\n\n\nauthor\nstr\nNone\nPackage author’s name\n\n\nauthor_email\nstr\nNone\nPackage author’s email address\n\n\nblack_formatting\nbool_arg\nFalse\nFormat libraries with black?\n\n\nbranch\nstr\nNone\nRepo default branch\n\n\ncell_number\nbool_arg\nTrue\nAdd cell number to the exported file\n\n\ncfg_name\nstr\nsettings.ini\nName of config file to create\n\n\nclean_ids\nbool_arg\nTrue\nRemove ids from plaintext reprs?\n\n\nclear_all\nbool_arg\nFalse\nRemove all cell metadata and cell outputs?\n\n\ncopyright\nstr\nNone\nCopyright for the package, defaults to ‘current_year onwards, author’\n\n\ncustom_sidebar\nbool_arg\nFalse\nUse a custom sidebar.yml?\n\n\ndescription\nstr\nNone\nShort summary of the package\n\n\ndoc_baseurl\nstr\n/%(repo)s\nBase URL for docs\n\n\ndoc_host\nstr\nhttps://%(user)s.github.io\nHostname for docs\n\n\ndoc_path\nPath\n_docs\nPath to rendered docs\n\n\ngit_url\nstr\nhttps://github.com/%(user)s/%(repo)s\nRepo URL\n\n\njupyter_hooks\nbool_arg\nFalse\nRun Jupyter hooks?\n\n\nkeywords\nstr\nnbdev jupyter notebook python\nPackage keywords\n\n\nlanguage\nstr\nEnglish\nLanguage PyPI classifier\n\n\nlib_name\nstr\n%(repo)s\nPackage name\n\n\nlib_path\nPath\nNone\nPath to package root (default: repo with - replaced by _)\n\n\nlicense\nstr\napache2\nLicense for the package\n\n\nmin_python\nstr\n3.7\nMinimum Python version PyPI classifier\n\n\nnbs_path\nPath\nnbs\nPath to notebooks\n\n\npath\nstr\n.\nPath to create config file\n\n\nput_version_in_init\nbool_arg\nTrue\nAdd the version to the main init.py in nbdev_export\n\n\nreadme_nb\nstr\nindex.ipynb\nNotebook to export as repo readme\n\n\nrecursive\nbool_arg\nTrue\nInclude subfolders in notebook globs?\n\n\nrepo\nstr\nNone\nRepo name\n\n\nskip_procs\nstr\n\nA comma-separated list of processors that you want to skip\n\n\nstatus\nstr\n3\nDevelopment status PyPI classifier\n\n\ntitle\nstr\n%(lib_name)s\nQuarto website title\n\n\ntst_flags\nstr\nnotest\nTest flags\n\n\nuser\nstr\nNone\nRepo username\n\n\nversion\nstr\n0.0.1\nVersion of this release\n\n\n\n\nsource\n\n\nrelease_git\n\n release_git (confirm_release:typing.Annotated[bool,&lt;typer.models.OptionIn\n              foobjectat0x7fe656932980&gt;]=False, token:str=None)\n\n*Tag and create a release in GitHub for the current version.\nExample:\n\nnbz release-git\n\n\nLearn more [answerdotai.github.io/nbz/commands.html#release_git](https://answerdotai.github.io/nbz/commands.html#release_git)*\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nconfirm_release\nAnnotated\nFalse\n\n\n\ntoken\nstr\nNone\nOptional GitHub token (otherwise token file is used)",
+    "crumbs": [
+      "commands"
+    ]
+  },
+  {
+    "objectID": "core.html#nbdev-command-imports",
+    "href": "core.html#nbdev-command-imports",
+    "title": "core",
+    "section": "nbdev command imports",
+    "text": "nbdev command imports",
+    "crumbs": [
+      "core"
+    ]
+  },
+  {
+    "objectID": "core.html#help-controller",
+    "href": "core.html#help-controller",
+    "title": "core",
+    "section": "Help controller",
+    "text": "Help controller\nThis is what allows us to type nbz and get the help display.\n\nsource\n\nhelper\n\n helper (ctx:typer.models.Context)\n\nnbz is a typer-based wrapper around the incredible nbdev project.",
+    "crumbs": [
+      "core"
+    ]
+  },
+  {
+    "objectID": "core.html#functions-to-typer-commands",
+    "href": "core.html#functions-to-typer-commands",
+    "title": "core",
+    "section": "functions to typer commands",
+    "text": "functions to typer commands\nLoop through the commands, prep them, and add them as typer commands to the global namespace.\n\nreadme()\n\npandoc -o README.md\n  to: &gt;-\n    commonmark+autolink_bare_uris+emoji+footnotes+gfm_auto_identifiers+pipe_tables+strikeout+task_lists+tex_math_dollars\n  output-file: index.html\n  standalone: true\n  default-image-extension: png\n  \nmetadata\n  description: nbz is a typer-based wrapper around the incredible nbdev project.\n  title: nbz\n  \nOutput created: _docs/README.md",
+    "crumbs": [
+      "core"
+    ]
+  },
+  {
+    "objectID": "core.html#functions-that-are-not-implemented-yet",
+    "href": "core.html#functions-that-are-not-implemented-yet",
+    "title": "core",
+    "section": "Functions that are ‘Not Implemented Yet’",
+    "text": "Functions that are ‘Not Implemented Yet’\n\nsource\n\nadd_nyi_command\n\n add_nyi_command (fname)\n\n\nadd_nyi_command('test_func')\nfunc = globals()['test_func']\ntest_eq(func.__name__, 'test_func')",
+    "crumbs": [
+      "core"
+    ]
+  }
+]
